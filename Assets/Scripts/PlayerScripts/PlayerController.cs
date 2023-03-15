@@ -4,38 +4,57 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //[
-    //REFERENCES
-    //Dash Tutorial - https://www.youtube.com/watch?v=w4YV8s9Wi3w
-    //]
+    public static PlayerController instance;
 
-    //Basics
     public float speed;
     public float stamina;
 
-    public Rigidbody2D rb;
+    public Rigidbody2D rb2d;
 
-    //Dash Variables
-    private Vector2 moveInput;
-    private float activeMoveSpeed;
-    public float dashSpeed;
-    public float dashLength = 1f;
-    public float dashCooldown = 1f;
-    private float dashCounter;
-    private float dashCoolCounter;
+    public bool canMove = true;
 
+    public int maxStamina = 20;
+    public int currentStamina;
+    public int regenRate = 1;
+
+    private IEnumerator RegenerateStamina()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1); // Wait for 1 second before regenerating stamina
+            RestoreStamina(regenRate);
+        }
+    }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        activeMoveSpeed = speed;
+        StartCoroutine(RegenerateStamina()); // Start the coroutine for stamina regeneration
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            currentStamina = maxStamina;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        rb2d = GetComponent<Rigidbody2D>();
+        currentStamina = maxStamina;
     }
 
-
+        
     private void Update()
     {
-        Movement();
-
+        if (canMove)
+        {
+            Movement();
+        }
+        else
+        {
+            Debug.Log("canMove is false");
+        }
     }
 
 
@@ -44,39 +63,26 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        moveInput = new Vector2(horizontal, vertical);
+        Vector2 movement = new Vector2(horizontal, vertical).normalized;
+        rb2d.velocity = movement * speed;
 
-        rb.velocity = moveInput * speed;
     }
-
-
-    private void Dash()//Doesn't Work RN
+    public void UseStamina(int amount)
     {
-        rb.velocity = moveInput * activeMoveSpeed;
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        currentStamina -= amount;
+        if (currentStamina < 0)
         {
-            if (dashCoolCounter <=0 && dashCounter <= 0)
-            {
-                activeMoveSpeed = dashSpeed;
-                dashCounter = dashLength;
-            }
-        }
-
-        if (dashCounter > 0)
-        {
-            dashCounter -= Time.deltaTime;
-
-            if (dashCounter <= 0)
-            {
-                activeMoveSpeed = speed;
-                dashCoolCounter = dashCooldown;
-            }
-        }
-
-        if (dashCoolCounter > 0)
-        {
-            dashCoolCounter -= Time.deltaTime;
+            currentStamina = 0;
         }
     }
+    public void RestoreStamina(int amount)
+    {
+        currentStamina += amount;
+        if (currentStamina > maxStamina)
+        {
+            currentStamina = maxStamina;
+        }
+    }
+
+
 }
