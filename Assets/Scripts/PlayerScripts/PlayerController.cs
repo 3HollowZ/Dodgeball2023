@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public int currentStamina;
     public int regenRate = 1;
 
+    private DodgeballThrow dodgeballThrow;
+    private float throwCooldown = 2f;
+
     private IEnumerator RegenerateStamina()
     {
         while (true)
@@ -42,9 +45,13 @@ public class PlayerController : MonoBehaviour
 
         rb2d = GetComponent<Rigidbody2D>();
         currentStamina = maxStamina;
+
+        dodgeballThrow = GetComponent<DodgeballThrow>();
+        throwCooldown = 2f;
+
     }
 
-        
+
     private void Update()
     {
         if (canMove)
@@ -55,8 +62,12 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("canMove is false");
         }
-    }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            dodgeballThrow.ThrowBall();
+        }
+    }
 
     private void Movement()
     {
