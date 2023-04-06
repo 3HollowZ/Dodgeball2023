@@ -1,0 +1,14 @@
+MOVEMENT CONTROLS
+-----------------
+MOVEMENT	-	"W","A","S","D" OR ARROW KEYS
+DASH		-	"LEFT SHIFT"
+
+
+ACTION CONTROLS
+---------------
+THROW		-	LEFT CLICK
+
+
+MISC CONTROLS
+-------------
+MUTE/UNMUTE	-	"M"

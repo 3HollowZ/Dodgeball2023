@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7181027064277245680}
   - component: {fileID: 7181027064277245683}
   - component: {fileID: -8514726828135499635}
+  - component: {fileID: 6943642764970002212}
   m_Layer: 21
   m_Name: Dodgeball
-  m_TagString: Player
+  m_TagString: Dodgeball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,3 +124,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6943642764970002212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181027064277245682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e601924adc5ca46abc4483157959e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

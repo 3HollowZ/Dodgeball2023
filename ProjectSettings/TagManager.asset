@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Dodgeball
   layers:
   - Default
   - TransparentFX
@@ -15,6 +16,7 @@ TagManager:
   - Floor
   - Walls
   - Props
+  - PlayerK Wall
   - 
   - 
   - 
@@ -24,8 +26,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Enemy
   - Player
   - Ball
   - 

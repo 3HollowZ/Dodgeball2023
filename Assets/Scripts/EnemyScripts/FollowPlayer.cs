@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
-    
+    public string playerTag = "Player";
+
     void Update()
     {
-        Vector3 playerpos = player.transform.position;
-        Vector2 direction = new Vector2(playerpos.x - transform.position.x, playerpos.y - transform.position.y);
-   
-        transform.up = direction;
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player != null)
+        {
+            Vector3 playerpos = player.transform.position;
+            Vector2 direction = new Vector2(playerpos.x - transform.position.x, playerpos.y - transform.position.y);
+            transform.up = direction;
+        }
     }
 }
